@@ -2,8 +2,10 @@
 
 import { authClient } from "@/lib/auth-client";
 import { Avatar, Button, Dropdown, Label } from "@heroui/react";
+import { getSession } from "better-auth/api";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { BiLogOut } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
@@ -14,7 +16,15 @@ const Navbar = () => {
 
   const { data: session } = authClient.useSession();
   const user = session?.user;
+  const role = user?.role;
+  console.log("role",role);
 
+  const pathName = usePathname();
+  if(pathName.includes('dashboard')){
+    return null;
+  }
+
+  
 
   const handleSignOut = async () => {
     await authClient.signOut();
@@ -132,8 +142,10 @@ const Navbar = () => {
                   >
                     <Dropdown.Item id="new-file" textValue="New file">
                     
+                       <Link className="flex items-center gap-2" href={`/dashboard/${role}`}>
                         <MdDashboard />
                         <Label>Dashboard</Label>
+                       </Link>
                   
                   
                     </Dropdown.Item>
@@ -167,7 +179,7 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <Link href="#" className="block py-2 font-medium text-accent">
+                <Link href={`/dashboard/${role}`} className="block py-2 font-medium text-accent">
                   Dashboard
                 </Link>
               </li>
