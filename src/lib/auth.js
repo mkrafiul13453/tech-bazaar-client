@@ -3,6 +3,7 @@ dns.setServers(["1.1.1.1", "1.0.0.1"]);
 import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
+import { jwt } from "better-auth/plugins";
 
 const client = new MongoClient(process.env.MONGODB_URI);
 const db = client.db("tech-bazaar");
@@ -14,14 +15,22 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
-  user:{
-    additionalFields:{
-      role:{
-        defaultValue:"buyer"
+  user: {
+    additionalFields: {
+      role: {
+        defaultValue: "buyer"
       },
-      plan:{
-        defaultValue:"free"
+      plan: {
+        defaultValue: "free"
       }
     }
-  }
+  },
+  session: {
+    cookieCache: {
+      enabled: true,
+      strategy: "jwt",
+      maxAge: 60 * 60 * 24 * 30
+    }
+  },
+  plugins: [jwt()],
 });

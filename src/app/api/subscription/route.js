@@ -8,6 +8,7 @@ export async function POST() {
     try {
         const headersList = await headers()
         const origin = headersList.get('origin')
+        
         const userSession = await auth.api.getSession({
             headers: await headers()
         })

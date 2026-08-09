@@ -20,7 +20,7 @@ export default function SignUpPage() {
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const user = Object.fromEntries(formData.entries());
+    const user = Object.fromEntries(formData.entries()); //use er moddeh je user signup korse sai user er information ase.
 
     await authClient.signUp.email({
       ...user,

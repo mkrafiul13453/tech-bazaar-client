@@ -17,7 +17,7 @@ const Navbar = () => {
   const { data: session } = authClient.useSession();
   const user = session?.user;
   const role = user?.role;
-  console.log("role",role);
+  // console.log("role",role);
 
   const pathName = usePathname();
   if(pathName.includes('dashboard')){

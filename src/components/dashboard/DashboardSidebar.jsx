@@ -6,6 +6,7 @@ import { Button, Drawer } from "@heroui/react";
 import { ChartArea } from "lucide-react";
 import { headers } from "next/headers";
 import Image from "next/image";
+import Link from "next/link";
 import { BiMoney } from "react-icons/bi";
 import { TbAsset } from "react-icons/tb";
 
@@ -19,21 +20,21 @@ export default async function DashboardSidebar() {
     // console.log("user",user);
 
 
-    const dashboardItems ={
-        seller:[
-            { icon: ChartArea, label: "Home",link: "/dashboard/seller" },
+    const dashboardItems = {
+        seller: [
+            { icon: ChartArea, label: "Home", link: "/dashboard/seller" },
             { icon: TbAsset, label: "Products", link: "/dashboard/seller/products" },
             { icon: BiMoney, label: "Transaction", link: "/dashboard/seller/transaction" },
 
         ],
-        buyer:[
-            { icon: ChartArea, label: "Home",link: "/dashboard/buyer" },
+        buyer: [
+            { icon: ChartArea, label: "Home", link: "/dashboard/buyer" },
             { icon: TbAsset, label: "Products", link: "/dashboard/buyer/products" },
             { icon: BiMoney, label: "Transaction", link: "/dashboard/buyer/transaction" },
 
         ],
-        admin:[
-            { icon: ChartArea, label: "Home",link: "/dashboard/admin" },
+        admin: [
+            { icon: ChartArea, label: "Home", link: "/dashboard/admin" },
             { icon: TbAsset, label: "Products", link: "/dashboard/admin/products" },
             { icon: BiMoney, label: "Transaction", link: "/dashboard/admin/transaction" },
 
@@ -58,26 +59,28 @@ export default async function DashboardSidebar() {
                 <Bars />
                 Menu
             </Button>
-            <div className ="w-full p-b-2">
-                <Image
-                    src={"/logo-xl.png"}
-                    alt="logo"
-                    width={150}
-                    height={100}
-                    className="rounded-full"
-                />
+            <div className="w-full p-b-2">
+                <Link href="/">
+                    <Image
+                        src={"/logo-xl.png"}
+                        alt="logo"
+                        width={150}
+                        height={100}
+                        className="rounded-full"
+                    /></Link>
             </div>
 
             <nav className="flex flex-col gap-1">
                 {navItems.map((item) => (
-                    <button
-                        key={item.label}
-                        className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-default"
-                        type="button"
-                    >
-                        <item.icon className="size-5 text-muted" />
-                        {item.label}
-                    </button>
+                    <Link key={item.label} href={item.link}>
+                        <button
+                            className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-default"
+                            type="button"
+                        >
+                            <item.icon className="size-5 text-muted" />
+                            {item.label}
+                        </button>
+                    </Link>
                 ))}
             </nav>
             <Drawer.Backdrop>
