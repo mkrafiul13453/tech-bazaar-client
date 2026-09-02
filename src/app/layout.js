@@ -23,7 +23,6 @@ export default function RootLayout({ children }) {
         <main className=" mx-auto px-2 min-h-screen">
           {children}
         </main>
-
         <Footer/>
       </body>
     </html>

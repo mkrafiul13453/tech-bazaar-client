@@ -1,17 +1,16 @@
-"use server";
+import { getTokenServer } from "../getTokenServer";
 
-import { authClient } from "../auth-client";
+const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
-const baseUrl = process.env.SERVER_URL;
-export const addProduct = async (product) => {
-    const {data:token} = await authClient.token();
-    const res = await fetch(`${baseUrl}/seller/products`, {
-        method: "POST",
+export const getProducts = async () => {
+    const token = await getTokenServer();
+    const res = await fetch(`${baseUrl}/seller/products`,{
+        method: "GET",
         headers: {
+            
             "Content-Type": "application/json",
-            authorization:`Bearer${token?.token}`
-        },
-        body: JSON.stringify(product),
+            authorization: `Bearer ${token}`
+        }
     });
     const data = await res.json();
     return data;

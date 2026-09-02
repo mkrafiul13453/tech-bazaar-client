@@ -1,6 +1,6 @@
 "use client";
 
-import { addProduct } from "@/lib/api/products";
+import { addProduct } from "@/lib/action/products";
 import { imageUpload } from "@/lib/imageUpload";
 import { Envelope } from "@gravity-ui/icons";
 import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
@@ -10,16 +10,17 @@ export default function AddProductModal() {
         e.preventDefault();
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData.entries());    //form re sob gulu data ai data ter moddeh ase.
-        const image = await imageUpload(data.image);
-        // console.log(image);
+        // console.log(data.image);
+        const image = await imageUpload(data?.image);
+        console.log("image", image);
         const product = {
             ...data,
-            image: image.url,
+            image: image,
         };
-        console.log(product);
+        // console.log(product);
 
         const result = await addProduct(product);
-        console.log(result);
+        // console.log(result);
 
         
 
