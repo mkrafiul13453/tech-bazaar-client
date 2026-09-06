@@ -1,6 +1,14 @@
-import { Table } from "@heroui/react";
+import { Pagination, Table } from "@heroui/react";
+import Link from "next/link";
 
-export function ProductsTable({products}) {
+export function ProductsTable({ productsData }) {
+    const products = productsData.data;
+    const totalPages = productsData.totalPage;
+    const pages = [];
+    const page = productsData.page;
+    for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+    }
     return (
         <Table className="mt-6">
             <Table.ScrollContainer>
@@ -23,6 +31,42 @@ export function ProductsTable({products}) {
                     </Table.Body>
                 </Table.Content>
             </Table.ScrollContainer>
+            <Table.Footer>
+                <Pagination size="sm">
+                   
+                    <Pagination.Content>
+                        <Pagination.Item>
+                            <Link href={`/dashboard/seller/products?page=${page-1}`}>
+                                <Pagination.Previous
+                                    isDisabled={page === 1}
+                                >
+                                    <Pagination.PreviousIcon />
+                                    Prev
+                                </Pagination.Previous>
+                            </Link>
+                        </Pagination.Item>
+                        {pages.map((p) => (
+                            <Pagination.Item key={p}>
+                                <Link href={`/dashboard/seller/products?page=${p}`}>
+                                    <Pagination.Link className={`${p==page && "bg-blue-500 text-white"}`}  isActive={p === page}>
+                                        {p}
+                                    </Pagination.Link>
+                                </Link>
+                            </Pagination.Item>
+                        ))}
+                        <Pagination.Item>
+                            <Link href={`/dashboard/seller/products?page=${page+1}`}>
+                                <Pagination.Next
+                                    isDisabled={page === totalPages}
+                                >
+                                    Next
+                                    <Pagination.NextIcon />
+                                </Pagination.Next>
+                            </Link>
+                        </Pagination.Item>
+                    </Pagination.Content>
+                </Pagination>
+            </Table.Footer>
         </Table>
     );
 }
