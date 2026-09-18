@@ -31,3 +31,11 @@ export const allProducts = async (search) => {
     const data = await res.json();
     return data;    
 };
+
+
+
+export const getProductById = async (id) => {
+    const res = await fetch(`${baseUrl}/products/${id}`);
+    const data = await res.json();
+    return data;
+}

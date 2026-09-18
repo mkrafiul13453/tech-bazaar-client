@@ -10,7 +10,7 @@ export const addProduct = async (product) => {
 
 
     // const { data: token } = await authClient.token();
-    // console.log("token", token.token);                       //aita holo client sode thek token get korar method
+    // console.log("token", token.token);                       //aita holo client side thek token get korar method
     // console.log("token", token);
 
     const res = await fetch(`${baseUrl}/seller/products`,

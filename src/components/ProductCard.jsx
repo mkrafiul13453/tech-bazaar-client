@@ -1,8 +1,9 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const ProductCard = ({ product }) => {
-    const { title, price, image, description } = product;
+    const { title, price, image, description , _id } = product;
 
     return (
         <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300">
@@ -35,9 +36,11 @@ const ProductCard = ({ product }) => {
                     </p>
 
                     {/* Buy Now Button */}
-                    <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium transition-colors duration-200">
-                        Buy Now
-                    </button>
+                    <Link href={`/products/${_id}`}>
+                        <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium transition-colors duration-200">
+                            Product Details
+                        </button>
+                    </Link>
 
                 </div>
             </div>
